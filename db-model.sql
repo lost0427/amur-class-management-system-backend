@@ -7,20 +7,14 @@ CREATE TABLE admin
 );
 
 DROP TABLE IF EXISTS parent;
-CREATE TABLE parent
-(
-    id           INTEGER PRIMARY KEY AUTOINCREMENT,
-    phone_number TEXT UNIQUE NOT NULL,
-    password     TEXT        NOT NULL
-);
 
 DROP TABLE IF EXISTS student;
 CREATE TABLE student
 (
-    id        INTEGER PRIMARY KEY AUTOINCREMENT,
-    name      TEXT    NOT NULL,
-    parent_id INTEGER NOT NULL,
-    FOREIGN KEY (parent_id) REFERENCES parent (id) ON DELETE CASCADE
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    name         TEXT        NOT NULL,
+    phone_number TEXT UNIQUE NOT NULL,
+    password     TEXT        NOT NULL
 );
 
 DROP TABLE IF EXISTS exam;
