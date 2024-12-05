@@ -1,7 +1,7 @@
 'use strict'
 
 import fp from 'fastify-plugin'
-import sqlite3 from 'sqlite3'
+import sqlite3, {OPEN_FULLMUTEX, OPEN_READWRITE} from 'sqlite3'
 import {FastifyPluginCallback, FastifyPluginOptions} from "fastify";
 
 // This is a plugin that will add a sqlite3 database connection to Fastify
@@ -15,20 +15,12 @@ declare module 'fastify' {
 
 const sqlite_plugin_func: FastifyPluginCallback = (fastify, options: FastifyPluginOptions, done): void => {
     if (!fastify.db) {
-        const db = new sqlite3.Database(fastify.config.DATABASE)
+        const db = new sqlite3.Database(fastify.config.DATABASE, OPEN_READWRITE | OPEN_FULLMUTEX)
+        db.serialize()
         fastify.decorate('db', db)
 
         fastify.addHook('onClose', (fastify, done) => {
-            if (fastify.db === db) {
-                fastify.db.close((err) => {
-                    if (err) {
-                        fastify.log.error(err)
-                        done(err)
-                        return
-                    }
-                    done()
-                })
-            }
+            fastify.db.close(done)
         })
     }
 

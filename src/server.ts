@@ -9,13 +9,14 @@ declare module 'fastify' {
             DATABASE: string
             PORT: number
             HOST: string
+            SESSION_SECRET: string
         };
     }
 }
 
 const schema = {
     type: 'object',
-    required: ['DATABASE'],
+    required: ['DATABASE', "SESSION_SECRET"],
     properties: {
         PORT: {
             type: 'integer',
@@ -27,6 +28,9 @@ const schema = {
         },
         DATABASE: {
             type: 'string'
+        },
+        SESSION_SECRET: {
+            type: 'string',
         }
     }
 }

@@ -1,10 +1,13 @@
 import {FastifyPluginCallback} from 'fastify'
 
-const api_func: FastifyPluginCallback = (fastify, opts, done) => {
+const all_apis: FastifyPluginCallback = (fastify, opts, done) => {
     fastify.get('/', async (request, reply) => {
         return {status: 'ok'}
     })
+
+
+
     done()
 }
 
-export default api_func
+export default all_apis

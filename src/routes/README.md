@@ -3,10 +3,13 @@
 所有的后端功能都在 /api 下。
 
 - NO POST /login
-- U POST /password
+- U PUT /password
   - change password of a user himself, need a current password.
-- A POST /student/:student_id/password
-  - change password of a student.
+- A GET /student/:student_id/password_reset_key
+  - request a password reset key of the student. (frontend url)
+- NO POST /student/:student_id/password_reset
+  - reset password of the student. (post new password and a key)
+- U GET /logout
 
 - AU GET /self
   - A: get admin info
