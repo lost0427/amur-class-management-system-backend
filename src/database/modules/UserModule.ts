@@ -14,6 +14,11 @@ export default class UserModule extends BasicDBModule {
         return await this.DBGet<Student>(sql, params)
     }
 
+    public async getAllStudents(): Promise<Array<Student>> {
+        const sql = `SELECT * FROM student`
+        return await this.DBAll<Student>(sql)
+    }
+
     public async updateStudent(student: Student): Promise<void> {
         const sql = `UPDATE student SET name = ?, phone_number = ?, password = ? WHERE id = ?`
         const params = [student.name, student.phone_number, student.password, student.id]

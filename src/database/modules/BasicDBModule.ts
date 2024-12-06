@@ -3,12 +3,17 @@ import sqlite3 from "sqlite3";
 export default abstract class BasicDBModule {
     private db: sqlite3.Database
 
-    public BasicDBModule(user_sqlite_db: sqlite3.Database) {
+    // BasicDBModule(user_sqlite_db: sqlite3.Database) {
+    //     // BasicDBModule constructor
+    //     this.db = user_sqlite_db
+    // }
+
+    constructor(sqlite_db: sqlite3.Database) {
         // BasicDBModule constructor
-        this.db = user_sqlite_db
+        this.db = sqlite_db
     }
 
-    public async DBRun(sql: string, params: Array<string | number>): Promise<void> {
+    public async DBRun(sql: string, params: Array<string | number> = []): Promise<void> {
         return new Promise((resolve, reject) => {
             this.db.run(sql, params, (err) => {
                 if (err) {
@@ -20,7 +25,7 @@ export default abstract class BasicDBModule {
         })
     }
 
-    public async DBGet<T>(sql: string, params: Array<string | number>): Promise<T | null> {
+    public async DBGet<T>(sql: string, params: Array<string | number> = []): Promise<T | null> {
         return new Promise((resolve, reject) => {
             this.db.get(sql, params, (err, row?: T) => {
                 if (err) {
@@ -32,7 +37,7 @@ export default abstract class BasicDBModule {
         })
     }
 
-    public async DBAll<T>(sql: string, params: Array<string | number>): Promise<Array<T>> {
+    public async DBAll<T>(sql: string, params: Array<string | number> = []): Promise<Array<T>> {
         return new Promise((resolve, reject) => {
             this.db.all(sql, params, (err, rows: Array<T>) => {
                 if (err) {
