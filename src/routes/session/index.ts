@@ -1,9 +1,8 @@
 import {FastifyPluginCallback} from 'fastify'
 import {fastifySession} from '@fastify/session';
 import {fastifyCookie} from '@fastify/cookie';
-import {Admin, Student} from "./user";
+import {Admin, Student} from "models/user";
 
-// Extend fastify.session with your custom type.
 declare module "fastify" {
     interface Session {
         student?: Student
