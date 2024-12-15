@@ -1,7 +1,6 @@
 import Database from "database";
 
-async function main() {
-    const database = new Database({db_file: process.env.DATABASE})
+export default async function test_students(database: Database) {
     await database.user_module.createStudent({name: "John Doe", phone_number: "1234567890", password: "password"})
     const student = await database.user_module.getStudentByPhone("1234567890")
     console.log(student)
@@ -11,5 +10,3 @@ async function main() {
     await database.user_module.deleteStudent(1)
     await database.close()
 }
-
-main().catch(console.error)

@@ -1,31 +1,21 @@
-import sqlite3, {OPEN_FULLMUTEX, OPEN_READWRITE} from 'sqlite3'
+import {ClientConfig, Pool} from "pg";
+import {Logger} from 'pino'
 import UserModule from "./modules/UserModule";
-
-export interface DatabaseConfig {
-    db_file: string
-}
+import ExamModule from "./modules/ExamModule";
 
 export default class Database {
-    private db: sqlite3.Database
+    private readonly db: Pool
     public user_module: UserModule
+    public exam_module: ExamModule
 
-    constructor(database_config: DatabaseConfig) {
-        const db = new sqlite3.Database(database_config.db_file, OPEN_READWRITE | OPEN_FULLMUTEX)
-        db.serialize()
-        this.db = db
+    constructor(db_config: ClientConfig, logger: Logger) {
+        this.db = new Pool(db_config)
 
-        this.user_module = new UserModule(this.db)
+        this.user_module = new UserModule(this.db, logger)
+        this.exam_module = new ExamModule(this.db, logger)
     }
 
     public async close(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            this.db.close((err) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve()
-                }
-            })
-        })
+        await this.db.end()
     }
 }
