@@ -1,6 +1,6 @@
 import Fastify, {FastifyInstance} from 'fastify'
 import fastifyEnv from '@fastify/env';
-import fastifyDBPlugin from './plugins/sqlite-plugin'
+import fastifyDBPlugin from './plugins/database-plugin'
 import routes from "./routes";
 
 declare module 'fastify' {

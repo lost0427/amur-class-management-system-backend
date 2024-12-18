@@ -1,11 +1,11 @@
 import {Pool, PoolClient} from "pg";
-import {Logger} from 'pino'
+import {BaseLogger} from 'pino'
 
 export default abstract class BasicDBModule {
     private db_pool: Pool
-    private log: Logger
+    private log: BaseLogger
 
-    constructor(pg_pool: Pool, server_logger: Logger) {
+    constructor(pg_pool: Pool, server_logger: BaseLogger) {
         // BasicDBModule constructor
         this.db_pool = pg_pool
         this.log = server_logger

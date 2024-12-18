@@ -6,7 +6,10 @@
         "removeComments": true,
         "preserveConstEnums": true,
         "outDir": "dist",
-        "sourceMap": true
+        "sourceMap": true,
+
+        "declaration": true,
+        "declarationMap": true,
     },
     "include": ["src/**/*.ts"]
 //    "exclude": ["**/*.spec.ts"]

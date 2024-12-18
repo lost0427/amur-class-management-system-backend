@@ -1,5 +1,7 @@
-import test_database from "./database";
+import {hash, compare} from 'bcrypt'
 
-test_database()
-    .then(() => console.log("Test completed"))
-    .catch((error) => console.error(error))
+async function hashPassword(password: string): Promise<string> {
+    return await hash(password, 10)
+}
+
+hashPassword('123').then(console.log)
