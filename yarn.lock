@@ -189,6 +189,11 @@
     fastify-plugin "^4.5.1"
     safe-stable-stringify "^2.4.3"
 
+"@fastify/type-provider-typebox@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.npmmirror.com/@fastify/type-provider-typebox/-/type-provider-typebox-5.1.0.tgz#465a26a46af7ff811fc84106dc603b62d1d166ee"
+  integrity sha512-F1AQHeLiKp1hu6GMWm5W6fZ6zXQ0mTV+qHOzrptAie9AYewvFr5Q3blfy8Qmx9gUgwA3Yj+CWvQQJeTwDgTnIg==
+
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
   resolved "https://registry.npmmirror.com/@isaacs/cliui/-/cliui-8.0.2.tgz#b37667b7bc181c168782259bab42474fbf52b550"
@@ -259,6 +264,11 @@
   version "0.11.0"
   resolved "https://registry.npmmirror.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
+
+"@sinclair/typebox@^0.34.12":
+  version "0.34.12"
+  resolved "https://registry.npmmirror.com/@sinclair/typebox/-/typebox-0.34.12.tgz#1100839feb4b7e756c295a70b6dc921f65f2d604"
+  integrity sha512-tNc3Z7OUqcneO14tYyUH2QMdvC2c5sQOY0+SDw70aZix7Qi4GkaOQc22LfaVFPn64enKU5ggV2ryLWykeMGEog==
 
 "@tsconfig/node10@^1.0.7":
   version "1.0.11"

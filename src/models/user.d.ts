@@ -10,3 +10,10 @@ export interface Admin {
     username: string
     password: string
 }
+
+export interface LoginUser {
+    credential: string // phone or username
+    password: string
+}
+
+export type User = Student | Admin

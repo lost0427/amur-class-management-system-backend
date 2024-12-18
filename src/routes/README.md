@@ -3,6 +3,12 @@
 所有的后端功能都在 /api 下。
 
 - NO POST /login
+  ```json
+  {
+    "username": "Neboer",
+    "password": "pass~"
+  }
+  ```
 - U PUT /password
   - change password of a user himself, need a current password.
 - A GET /student/:student_id/password_reset_key

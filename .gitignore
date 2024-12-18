@@ -13,3 +13,4 @@ yarn-error.log*
 # Build directories
 dist/
 temp/
+test/

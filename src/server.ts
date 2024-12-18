@@ -1,7 +1,9 @@
 import Fastify, {FastifyInstance} from 'fastify'
+import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
 import fastifyEnv from '@fastify/env';
 import fastifyDBPlugin from './plugins/database-plugin'
 import routes from "./routes";
+
 
 declare module 'fastify' {
     interface FastifyInstance {
@@ -44,7 +46,7 @@ const options = {
 async function main() {
     const server: FastifyInstance = Fastify({
         logger: true
-    })
+    }).withTypeProvider<TypeBoxTypeProvider>()
 
     await server.register(fastifyEnv, options)
     server.register(fastifyDBPlugin)

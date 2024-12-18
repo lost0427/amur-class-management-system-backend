@@ -15,14 +15,19 @@ export default abstract class BasicDBModule {
         })
     }
 
-    public async query<T>(sql: string, params: Array<string | number> = []): Promise<T[]> {
+    protected async query<T>(sql: string, params: Array<string | number> = []): Promise<T[]> {
         this.log.debug(`Receive database query: ${sql}`)
         return (await this.db_pool.query(sql, params)).rows
     }
 
-    public async query_one<T>(sql: string, params: Array<string | number> = []): Promise<T> {
+    protected async query_one<T>(sql: string, params: Array<string | number> = []): Promise<T | null> {
         this.log.debug(`Receive database query: ${sql}`)
-        return (await this.db_pool.query(sql, params)).rows[0]
+        let query_result = (await this.db_pool.query(sql, params)).rows
+        if (query_result.length === 0) {
+            return null
+        } else {
+            return query_result[0]
+        }
     }
 
     /**
