@@ -2,6 +2,7 @@ import {FastifyPluginCallback} from 'fastify'
 import {fastifySession} from '@fastify/session';
 import {fastifyCookie} from '@fastify/cookie';
 import {Admin, Student} from "models/user";
+import login_logout from "./login-logout";
 
 declare module "fastify" {
     interface Session {
@@ -20,7 +21,7 @@ const session_apis: FastifyPluginCallback = (fastify, opts, done) => {
             maxAge: 1000 * 60 * 60 * 24 * 7
         }
     })
-
+    fastify.register(login_logout)
 
 }
 
