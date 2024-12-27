@@ -1,4 +1,4 @@
-import {Admin, Student} from "models/user";
+import {Admin, Student, PasswordResetRecord} from "models/user";
 import BasicDBModule from "./BasicDBModule";
 
 export default class UserModule extends BasicDBModule {
@@ -38,6 +38,15 @@ export default class UserModule extends BasicDBModule {
                          password     = ?
                      WHERE id = ?`
         const params = [student.name, student.phone_number, student.password, student.id]
+        await this.query(sql, params)
+    }
+
+    public async update_admin(admin: Admin): Promise<void> {
+        const sql = `UPDATE admin
+                     SET username = ?,
+                         password = ?
+                     WHERE id = ?`
+        const params = [admin.username, admin.password, admin.id]
         await this.query(sql, params)
     }
 

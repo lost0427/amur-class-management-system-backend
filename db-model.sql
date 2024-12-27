@@ -19,6 +19,17 @@ CREATE TABLE student
     password     TEXT        NOT NULL
 );
 
+DROP TABLE IF EXISTS student_password_reset CASCADE ;
+CREATE TABLE student_password_reset
+(
+    id         SERIAL PRIMARY KEY,
+    student_id INTEGER NOT NULL,
+    token      TEXT    NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    used_at    TIMESTAMPTZ,
+    FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE CASCADE
+);
+
 DROP TABLE IF EXISTS exam CASCADE ;
 CREATE TABLE exam
 (

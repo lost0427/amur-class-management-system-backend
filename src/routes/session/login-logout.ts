@@ -1,5 +1,4 @@
 import {FastifyPluginCallback} from "fastify";
-import {compare} from 'bcrypt'
 import {User} from "models/user";
 import {Type} from '@sinclair/typebox'
 import {TypeBoxTypeProvider} from "@fastify/type-provider-typebox";
@@ -20,26 +19,26 @@ const login_api: FastifyPluginCallback = (f, opts, done) => {
             return reply.status(403).send({error: 'Already logged in'})
         }
 
-        let login_student: User = await fastify.db.user_module.get_student_by_phone(request.body.credential)
-        let login_admin;
-        if (!login_student) {
+        let db_student: User = await fastify.db.user_module.get_student_by_phone(request.body.credential)
+        let db_admin;
+        if (!db_student) {
             // maybe not a normal student, check if it's an admin
-            login_admin = await fastify.db.user_module.get_admin_by_name(request.body.credential)
-            if (!login_admin) {
+            db_admin = await fastify.db.user_module.get_admin_by_name(request.body.credential)
+            if (!db_admin) {
                 // not an admin either, return error
                 fastify.log.info(`User not found: ${request.body.credential}`)
                 return reply.status(404).send({error: 'User not found'})
             }
         }
 
-        const query_password = login_student ? login_student.password : login_admin.password
-        if (!await compare(request.body.password, query_password)) {
+        const db_bcrypt_password = db_student ? db_student.password : db_admin.password
+        if (!await fastify.bcrypt_compare(request.body.password, db_bcrypt_password)) {
             fastify.log.info(`Incorrect password for user: ${request.body.credential}`)
             return reply.status(401).send({error: 'Incorrect password'})
         } else {
             fastify.log.info(`User ${request.body.credential} logged in`)
-            request.session.student = login_student
-            request.session.admin = login_admin
+            request.session.student = db_student
+            request.session.admin = db_admin
         }
         return {status: 'ok'}
     })

@@ -11,7 +11,7 @@
   ```
 - U PUT /password
   - change password of a user himself, need a current password.
-- A GET /student/:student_id/password_reset_key
+- A GET /student/:student_id/password_reset_key (user forget password)
   - request a password reset key of the student. (frontend url)
 - NO POST /student/:student_id/password_reset
   - reset password of the student. (post new password and a key)

@@ -11,11 +11,13 @@
     "@fastify/type-provider-typebox": "^5.1.0",
     "@sinclair/typebox": "^0.34.12",
     "@types/bcrypt": "^5.0.2",
+    "@types/uuid": "^10.0.0",
     "bcrypt": "^5.1.1",
     "fastify": "^5.1.0",
     "fastify-plugin": "^5.0.1",
     "pg": "^8.13.1",
-    "pg-pool": "^3.7.0"
+    "pg-pool": "^3.7.0",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",

@@ -16,4 +16,12 @@ export interface LoginUser {
     password: string
 }
 
+export interface PasswordResetRecord {
+    id?: number
+    student_id: number
+    token: string
+    created_at?: Date
+    used_at?: Date
+}
+
 export type User = Student | Admin

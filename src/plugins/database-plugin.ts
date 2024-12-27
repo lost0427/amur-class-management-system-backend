@@ -1,11 +1,6 @@
-'use strict'
-
 import fp from 'fastify-plugin'
 import Database from "database";
 import {FastifyPluginCallback, FastifyPluginOptions} from "fastify";
-
-// This is a plugin that will add a sqlite3 database connection to Fastify
-// Define a new datatype FastifyInstanceDB that extends FastifyInstanceBase
 
 declare module 'fastify' {
     interface FastifyInstance {
