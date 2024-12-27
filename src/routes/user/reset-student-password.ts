@@ -1,9 +1,9 @@
 import {FastifyPluginCallback} from "fastify";
 import {TypeBoxTypeProvider} from "@fastify/type-provider-typebox";
 import {Type} from "@sinclair/typebox";
-import {require_admin, require_login} from "../session/require-privilege";
-import {User, PasswordResetRecord} from "models/user";
-import { v4 as uuidv4 } from 'uuid';
+import {require_admin} from "../session/require-privilege";
+import {PasswordResetRecord} from "models/user";
+import {v4 as uuidv4} from 'uuid';
 
 
 const reset_student_pass_api: FastifyPluginCallback = (f, opts, done) => {
@@ -17,13 +17,13 @@ const reset_student_pass_api: FastifyPluginCallback = (f, opts, done) => {
             })
         }
     }, async (request, reply) => {
-        const reset_record : PasswordResetRecord = {
+        const reset_record: PasswordResetRecord = {
             student_id: Number.parseInt(request.params.student_id),
             token: uuidv4()
         }
         await fastify.db.reset_pass_module.create_password_reset_record(reset_record)
         fastify.log.info(`Password reset token created for student ${request.params.student_id}`)
-        return {status: 'ok'}
+        return {status: 'ok', token: reset_record.token}
     })
 
     fastify.post('/student/password_reset', {

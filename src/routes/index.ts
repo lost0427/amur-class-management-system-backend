@@ -1,12 +1,13 @@
 import {FastifyPluginCallback} from 'fastify'
-import SessionAPI from "./session";
+import session_apis from "./session";
+import user_apis from './user'
 
 const all_apis: FastifyPluginCallback = (fastify, opts, done) => {
     fastify.get('/', async (request, reply) => {
         return {status: 'ok'}
     })
-    fastify.register(SessionAPI)
-
+    fastify.register(session_apis)
+    fastify.register(user_apis)
 
     done()
 }

@@ -17,6 +17,14 @@ export default class UserModule extends BasicDBModule {
         return await this.query_one<Student>(sql, params)
     }
 
+    public async get_student_by_id(id: number): Promise<Student | null> {
+        const sql = `SELECT *
+                     FROM student
+                     WHERE id = ?`
+        const params = [id]
+        return await this.query_one<Student>(sql, params)
+    }
+
     public async get_admin_by_name(username: string): Promise<Admin | null> {
         const sql = `SELECT *
                      FROM admin
