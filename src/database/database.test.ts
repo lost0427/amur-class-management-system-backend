@@ -7,7 +7,7 @@ import * as assert from "node:assert";
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
-            PG_CONNECTION_STRING: string;
+            DATABASE: string;
         }
     }
 }
@@ -17,7 +17,7 @@ describe('DatabaseTest', () => {
 
     before(() => {
         db = new Database({
-            connectionString: process.env.PG_CONNECTION_STRING,
+            connectionString: process.env.DATABASE,
         }, pino())
     })
 

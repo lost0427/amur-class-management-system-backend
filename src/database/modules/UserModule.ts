@@ -2,6 +2,13 @@ import {Admin, Student, PasswordResetRecord} from "models/user";
 import BasicDBModule from "./BasicDBModule";
 
 export default class UserModule extends BasicDBModule {
+    public async create_admin(admin: Admin): Promise<void> {
+        const sql = `INSERT INTO admin (username, password)
+                     VALUES ($1, $2)`
+        const params = [admin.username, admin.password]
+        await this.query(sql, params)
+    }
+
     public async create_student(student: Student): Promise<void> {
         const sql = `INSERT INTO student (name, phone_number, password)
                      VALUES (?, ?, ?)`

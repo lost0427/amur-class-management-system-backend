@@ -33,6 +33,7 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "run": "node dist/server.js",
-    "test": "node dist/test/index.js"
+    "test": "node dist/test/index.js",
+    "create-admin": "node dist/scripts/create-admin.js"
   }
 }
