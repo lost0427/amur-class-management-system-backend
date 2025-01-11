@@ -10,7 +10,8 @@ const login_api: FastifyPluginCallback = (f, opts, done) => {
         schema: {
             body: Type.Object({
                 credential: Type.String(),
-                password: Type.String()
+                password: Type.String(),
+                remember_me: Type.Boolean()
             })
         }
     }, async (request, reply) => {
@@ -39,6 +40,11 @@ const login_api: FastifyPluginCallback = (f, opts, done) => {
             fastify.log.info(`User ${request.body.credential} logged in`)
             request.session.student = db_student
             request.session.admin = db_admin
+            if (request.body.remember_me) {
+                request.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 30; // 30 days
+            } else {
+                request.session.cookie.maxAge = 1000 * 60 * 60 * 24; // 1 day
+            }
         }
         return {status: 'ok'}
     })
