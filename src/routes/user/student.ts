@@ -43,7 +43,7 @@ const student_api: FastifyPluginCallback = (f, opts, done) => {
         return await fastify.db.user_module.create_student({
             name: request.body.name,
             phone_number: request.body.phone,
-            password: request.body.password
+            password: await fastify.bcrypt_hash(request.body.password)
         })
     })
 
