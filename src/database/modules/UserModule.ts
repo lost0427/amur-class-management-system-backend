@@ -11,7 +11,7 @@ export default class UserModule extends BasicDBModule {
 
     public async create_student(student: Student): Promise<void> {
         const sql = `INSERT INTO student (name, phone_number, password)
-                     VALUES (?, ?, ?)`
+                     VALUES ($1. $2, $3)`
         const params = [student.name, student.phone_number, student.password]
         await this.query(sql, params)
     }
