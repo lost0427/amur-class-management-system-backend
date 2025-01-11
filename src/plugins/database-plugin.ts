@@ -8,7 +8,7 @@ declare module 'fastify' {
     }
 }
 
-const sqlite_plugin_func: FastifyPluginCallback = (fastify, options: FastifyPluginOptions, done): void => {
+const pgsql_plugin_func: FastifyPluginCallback = (fastify, options: FastifyPluginOptions, done): void => {
     if (!fastify.db) {
         const db = new Database({connectionString: fastify.config.DATABASE}, fastify.log)
         fastify.decorate('db', db)
@@ -25,4 +25,4 @@ const sqlite_plugin_func: FastifyPluginCallback = (fastify, options: FastifyPlug
     done()
 }
 
-export default fp(sqlite_plugin_func)
+export default fp(pgsql_plugin_func)
