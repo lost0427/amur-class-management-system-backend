@@ -23,6 +23,7 @@ const session_apis: FastifyPluginCallback = (fastify, opts, done) => {
     })
     fastify.register(login_logout)
 
+    done()
 }
 
 export default session_apis
