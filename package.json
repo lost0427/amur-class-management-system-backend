@@ -32,7 +32,7 @@
   },
   "scripts": {
     "build": "tsc && tsc-alias",
-    "run": "node dist/server.js",
+    "run": "node dist/server.js | pino-pretty",
     "test": "node dist/test/index.js",
     "create-admin": "node dist/scripts/create-admin.js"
   }
