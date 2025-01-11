@@ -1,15 +1,18 @@
 import {FastifyPluginCallback} from 'fastify'
 import session_apis from "./session";
 import user_apis from './user'
+import captcha_api from "./captcha";
 
-const all_apis: FastifyPluginCallback = (fastify, opts, done) => {
+const routes: FastifyPluginCallback = (fastify, opts, done) => {
     fastify.get('/', async (request, reply) => {
         return {status: 'ok'}
     })
+
     fastify.register(session_apis)
+    fastify.register(captcha_api)
     fastify.register(user_apis)
 
     done()
 }
 
-export default all_apis
+export default routes

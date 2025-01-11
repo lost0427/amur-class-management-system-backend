@@ -12,15 +12,6 @@ declare module "fastify" {
 }
 
 const session_apis: FastifyPluginCallback = (fastify, opts, done) => {
-    fastify.register(fastifyCookie)
-    fastify.register(fastifySession, {
-        secret: fastify.config.SESSION_SECRET,
-        cookieName: 'session_id',
-        cookie: {
-            secure: false,
-            maxAge: 1000 * 60 * 60 * 24 * 7
-        }
-    })
     fastify.register(login_logout)
 
     done()

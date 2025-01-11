@@ -4,6 +4,8 @@ import fastifyEnv from '@fastify/env';
 import fastifyDBPlugin from './plugins/database-plugin'
 import fastifyBcryptPlugin from './plugins/bcrypt-plugin'
 import routes from "./routes";
+import {fastifyCookie} from "@fastify/cookie";
+import {fastifySession} from "@fastify/session";
 
 
 declare module 'fastify' {
@@ -52,6 +54,15 @@ async function main() {
     await server.register(fastifyEnv, options)
     server.register(fastifyDBPlugin)
     server.register(fastifyBcryptPlugin)
+    server.register(fastifyCookie)
+    server.register(fastifySession, {
+        secret: server.config.SESSION_SECRET,
+        cookieName: 'session_id',
+        cookie: {
+            secure: false,
+            maxAge: 1000 * 60 * 60 * 24 // 1 day
+        }
+    })
     server.register(routes, {prefix: '/api'})
 
     server.log.info(`Starting server on ${server.config.HOST}:${server.config.PORT}`)
