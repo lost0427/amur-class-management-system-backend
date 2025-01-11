@@ -17,6 +17,7 @@
     "fastify-plugin": "^5.0.1",
     "pg": "^8.13.1",
     "pg-pool": "^3.7.0",
+    "svg-captcha": "^1.4.0",
     "uuid": "^11.0.3"
   },
   "devDependencies": {

@@ -11,13 +11,22 @@ const login_api: FastifyPluginCallback = (f, opts, done) => {
             body: Type.Object({
                 credential: Type.String(),
                 password: Type.String(),
-                remember_me: Type.Boolean()
+                remember_me: Type.Boolean(),
+                captcha: Type.String()
             })
         }
     }, async (request, reply) => {
         if (request.session.student || request.session.admin) {
             fastify.log.info(`User ${request.body.credential} already logged in`)
             return reply.status(403).send({error: 'Already logged in'})
+        }
+
+        if (!request.session.captcha || request.body.captcha.toLowerCase() !== request.session.captcha.toLowerCase()) {
+            fastify.log.info(`Incorrect captcha: ${request.body.captcha} != ${request.session.captcha}`)
+            return reply.status(401).send({error: 'Incorrect captcha'})
+        } else {
+            fastify.log.info(`Captcha correct: ${request.body.captcha}, reset it.`)
+            request.session.captcha = undefined
         }
 
         let db_student: User = await fastify.db.user_module.get_student_by_phone(request.body.credential)
