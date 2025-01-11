@@ -4,7 +4,7 @@ import {require_login} from "../session/require-privilege";
 import {Type} from '@sinclair/typebox'
 import {Admin, Student} from "../../models/user";
 
-const user_api: FastifyPluginCallback = (f, opts, done) => {
+const user_basic_api: FastifyPluginCallback = (f, opts, done) => {
     const fastify = f.withTypeProvider<TypeBoxTypeProvider>()
 
     // 用户获取自身信息
@@ -40,4 +40,4 @@ const user_api: FastifyPluginCallback = (f, opts, done) => {
     done()
 }
 
-export default user_api
+export default user_basic_api
