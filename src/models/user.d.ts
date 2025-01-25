@@ -11,11 +11,6 @@ export interface Admin {
     password: string
 }
 
-export interface LoginUser {
-    credential: string // phone or username
-    password: string
-}
-
 export interface PasswordResetRecord {
     id?: number
     student_id: number

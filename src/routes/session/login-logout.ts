@@ -9,7 +9,7 @@ const login_api: FastifyPluginCallback = (f, opts, done) => {
     fastify.post('/login', {
         schema: {
             body: Type.Object({
-                credential: Type.String(),
+                username: Type.String(),
                 password: Type.String(),
                 remember_me: Type.Boolean(),
                 captcha: Type.String()
@@ -17,7 +17,7 @@ const login_api: FastifyPluginCallback = (f, opts, done) => {
         }
     }, async (request, reply) => {
         if (request.session.student || request.session.admin) {
-            fastify.log.info(`User ${request.body.credential} already logged in`)
+            fastify.log.info(`User ${request.body.username} already logged in`)
             return reply.status(403).send({error: 'Already logged in'})
         }
 
@@ -29,24 +29,24 @@ const login_api: FastifyPluginCallback = (f, opts, done) => {
             request.session.captcha = undefined
         }
 
-        let db_student: User = await fastify.db.user_module.get_student_by_phone(request.body.credential)
+        let db_student: User = await fastify.db.user_module.get_student_by_phone(request.body.username)
         let db_admin;
         if (!db_student) {
             // maybe not a normal student, check if it's an admin
-            db_admin = await fastify.db.user_module.get_admin_by_name(request.body.credential)
+            db_admin = await fastify.db.user_module.get_admin_by_name(request.body.username)
             if (!db_admin) {
                 // not an admin either, return error
-                fastify.log.info(`User not found: ${request.body.credential}`)
-                return reply.status(404).send({error: 'User not found'})
+                fastify.log.info(`User not found: ${request.body.username}`)
+                return reply.status(404).send({error: 'Invalid username or password'})
             }
         }
 
         const db_bcrypt_password = db_student ? db_student.password : db_admin.password
         if (!await fastify.bcrypt_compare(request.body.password, db_bcrypt_password)) {
-            fastify.log.info(`Incorrect password for user: ${request.body.credential}`)
-            return reply.status(401).send({error: 'Incorrect password'})
+            fastify.log.info(`Incorrect password for user: ${request.body.username}`)
+            return reply.status(401).send({error: 'Invalid username or password'})
         } else {
-            fastify.log.info(`User ${request.body.credential} logged in`)
+            fastify.log.info(`User ${request.body.username} logged in`)
             request.session.student = db_student
             request.session.admin = db_admin
             if (request.body.remember_me) {
