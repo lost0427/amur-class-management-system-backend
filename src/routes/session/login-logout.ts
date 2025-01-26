@@ -1,7 +1,7 @@
 import {FastifyPluginCallback} from "fastify";
-import {User} from "models/user";
 import {Type} from '@sinclair/typebox'
 import {TypeBoxTypeProvider} from "@fastify/type-provider-typebox";
+import {Student} from "../../models/user";
 
 
 const login_api: FastifyPluginCallback = (f, opts, done) => {
@@ -29,7 +29,8 @@ const login_api: FastifyPluginCallback = (f, opts, done) => {
             request.session.captcha = undefined
         }
 
-        let db_student: User = await fastify.db.user_module.get_student_by_phone(request.body.username)
+        // 普通的用户和管理员账号不同之处在于，管理员账号拥有……
+        let db_student: Student | null = await fastify.db.user_module.get_student_by_phone(request.body.username)
         let db_admin;
         if (!db_student) {
             // maybe not a normal student, check if it's an admin

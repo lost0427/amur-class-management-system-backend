@@ -18,5 +18,3 @@ export interface PasswordResetRecord {
     created_at?: Date
     used_at?: Date
 }
-
-export type User = Student | Admin
