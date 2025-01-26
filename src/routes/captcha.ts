@@ -14,7 +14,7 @@ const captcha_api: FastifyPluginCallback = (f, opts, done) => {
     fastify.get('/captcha', async (request, reply) => {
         fastify.log.info('Generating captcha')
         const captcha = svgCaptcha.create({
-            ignoreChars: '0o1ilb69gqaj2z',
+            ignoreChars: '0o1iIlb69gqaj2z',
             width: 166,
             height: 50
         });
