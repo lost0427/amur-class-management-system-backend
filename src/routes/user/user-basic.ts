@@ -11,7 +11,11 @@ const user_basic_api: FastifyPluginCallback = (f, opts, done) => {
     fastify.get('/self', {
         preHandler: require_login
     }, async (request, reply) => {
-        return request.session.student || request.session.admin
+        const {password, ...no_password_session} = request.session.student || request.session.admin
+        return {
+            admin: !request.session.student,
+            ...no_password_session
+        }
     })
 
     // 用户登录状态下修改密码
