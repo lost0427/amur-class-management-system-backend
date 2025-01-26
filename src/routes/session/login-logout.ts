@@ -72,6 +72,16 @@ const login_api: FastifyPluginCallback = (f, opts, done) => {
         return {status: 'ok'}
     })
 
+    fastify.get('/verify-session', async (request, reply) => {
+        if (request.session.student || request.session.admin) {
+            fastify.log.info('Session is valid');
+            return { status: 'ok' };
+        } else {
+            fastify.log.info('Session expired or no user logged in');
+            return reply.status(401).send({ error: 'Session expired or no user logged in' });
+        }
+    });
+
     done()
 }
 
