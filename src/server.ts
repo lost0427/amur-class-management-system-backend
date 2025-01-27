@@ -48,7 +48,9 @@ const options = {
 
 async function main() {
     const server: FastifyInstance = Fastify({
-        logger: true
+        logger: {
+            level: 'debug'
+        }
     })
 
     await server.register(fastifyEnv, options)
